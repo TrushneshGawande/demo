@@ -11,9 +11,11 @@ jobs:
       with:
         fetch-depth: '0'
     - name: Bump version and push tag
-      id: generated-tag
+      id: determine-tag
       uses: anothrNick/github-tag-action@1.36.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         WITH_V: true
         DRY_RUN: true
+    - name: verify determined tag value
+      run : ${{ steps.determine-tag.outputs.new_tag }}
